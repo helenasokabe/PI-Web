@@ -1,81 +1,76 @@
 package com.senac.piweb.controller;
 
 import com.senac.piweb.model.Cliente;
-import com.senac.piweb.model.Produto;
+import com.senac.piweb.model.ItemVenda;
+import com.senac.piweb.service.ClienteService;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ClienteController {
-    private final List<Cliente> listaCliente = new ArrayList();
-    private final List<Produto> listaProduto = new ArrayList();
-    
-    @GetMapping("/") 
-    public String inicio(){
-        return "index"; 
+
+    @Autowired
+    ClienteService clienteService;
+   
+    static List<ItemVenda> peguei = new ArrayList();
+    static double total;
+    static Cliente cliente = new Cliente();    
+
+    @GetMapping("/")
+    public String inicio() {
+        return "index";
     }
-    
-    @GetMapping("/inserir-cliente") 
-    public String cadastroForm(Model model){
+
+    @GetMapping("/inserir-cliente")
+    public String cadastroForm(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "cadastroCli"; 
-    }  
-    
-    @GetMapping("/listagem")
-    public String listaForm(Model model){
-        model.addAttribute("listacliente", listaCliente);
-        return "listacliente"; 
-    } 
-    
-    @PostMapping("/gravar")
-    public String processarFormulario(@ModelAttribute Cliente cli, Model model){
-        cli.setId(listaCliente.size() + 1);
-        listaCliente.add(cli);
-        return "redirect:/listagem";
+        return "cadastroCli";
     }
-    //@PostMapping("/gravar-venda")
-    //public String gravarComentarioUsuario(@ModelAttribute Cliente cliente, @ModelAttribute Produto prod, Model model){
-      //  prod.setId(listaProduto.size()+1);
-        //prod.
-        //listaAnalise.add(analise);
-       // return "redirect:/listagem";
-    //}    
-    
-   @GetMapping("/exibir")
-    public String mostravenda(Model model){
-        return "exibir";
+
+    @GetMapping("/listaCliente")
+    public String listaForm(Model model) {
+        model.addAttribute("listacliente", clienteService.listarTodosClientes());
+        return "listacliente";
     }
-   /*public String mostraDetalhes(Model model, @RequestParam String id){
+
+    @PostMapping("/gravarCliente")
+    public String processarFormularioCliente(@RequestBody @ModelAttribute Cliente cliente, Model model) {
+        if (cliente.getId() != null) {
+            clienteService.atualizarCliente(cliente.getId(), cliente);
+      
+        } else {        
+            clienteService.criarCliente(cliente);
+        }
+        return "redirect:/listaCliente";
+    }     
+    
+    @GetMapping("/excluirCliente")
+    public String excluirCliente(Model model, @RequestParam String id) {
         Integer idCliente = Integer.parseInt(id);
-        Cliente registroEncontrado = new Cliente();
-        for(Cliente l: listaCliente){
-           if(l.getId() == idCliente) {
-               registroEncontrado = l;
-               break;
-           }
-        }
-        
-        Produto produtoEncontrado = new Produto();
-        for (Produto com: listaProduto) {
-            if (com.getId() == idProduto) {
-                analiseEncontrada = com;
-                break;
-            } else {
-            }
-        }
-        
-        model.addAttribute("filme", registroEncontrado);
-        model.addAttribute("analise", analiseEncontrada);
-        return "exibir";
-    }    */
+        clienteService.excluirCliente(idCliente);
+        return "redirect:/listaCliente";
+    }
+
+    @GetMapping("/alteraCliente")
+    public String alterarcliente(Model model, @RequestParam String id) {
+        Integer idCliente = Integer.parseInt(id);
+        Cliente clienteEncontrado = clienteService.buscarClientePorId(idCliente);
+        model.addAttribute("cliente", clienteEncontrado);
+        return "alteraCliente";
+    }   
+    
+    @PostMapping("/buscarClienteNome")
+    public String pesquisar(Model model, @RequestParam String nome) {
+        List<Cliente> listacliente = clienteService.buscarClientePorNome(nome);
+        model.addAttribute("listacliente", listacliente);
+        return "listaCliente";
+    }    
 }

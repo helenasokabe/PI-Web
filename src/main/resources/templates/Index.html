@@ -13,18 +13,16 @@
         <div class = "row">
             <img th:src="@{/images/logo6.png}" width="200" height="200" alt="Logo" class="logo">
         </div>
-            
-        <nav>
-            <a th:href="@{/}">Início</a>
-            <a th:href="@{/inserir-cliente}">Clientes</a>
-            <a th:href="@{/inserir-produto}">Produtos</a>
-            <a th:href="@{/inserir-venda}">Venda</a>
-            <a th:href="@{/listagem}">Listar Cliente</a>
-            <a th:href="@{/listagempro}">Listar Produto</a>
-            <a th:href="@{/listagemVenda}">Listar Venda</a>
-        </nav>
-
-    
-
-</body>
+        <div class="col-sm-8" style="margin: auto">    
+            <nav style="align-items: center">
+                <a th:href="@{/}">Início</a>
+                <a th:href="@{/inserir-cliente}">Novo Cliente</a>
+                <a th:href="@{/inserir-produto}">Novo Produto</a>
+                <a th:href="@{/exibir-novo}">Venda</a>
+                <a th:href="@{/listaCliente}">Listar Clientes</a>
+                <a th:href="@{/listaProduto}">Listar Produtos</a>
+                <a th:href="@{/listagemVenda}">Listar Vendas</a>
+            </nav>
+        </div>
+    </body>
 </html>

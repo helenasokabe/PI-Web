@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Dados da Venda</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> 
+        <link th:href="@{/css/}+'estilo.css'" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="col-sm-6" style="margin: auto">
+            <h1>Dados da Venda</h1> 
+            <p>ID: <b><span th:text="${venda.id}" /></b></p>
+            <p>Nome: <b><span th:text="${venda.cliente.nome}" /></b></p>
+            <p>Data: <b><span th:text="${venda.dataVenda}" /></b></p> 
+            <p>Tipo: <b><span th:text="${venda.tipoPagamento}" /></b></p>
+            <p>Parcela <b><span th:text="${venda.parcela}" /></b></p>
+            <p>Total: <b><span th:text="${venda.total}" /></b></p>
+            <h1>Produtos</h1> 
+            <ul>
+                <li th:each="reg : ${itemvenda}">
+                    <p>Quantidade: <span th:text="${reg.quant}"></p>
+                    <p>Produto: <span th:text="${reg.produto.nomeproduto}"></p>
+                    <p>Preço unitário: <span th:text="${reg.produto.valor}"></p>
+                </li>
+            </ul>
+            <a th:href="@{/listagemVenda}"><button type="button" class="btn btn-dark">Voltar</button></a>
+        </div>
+    </body>
+</html>

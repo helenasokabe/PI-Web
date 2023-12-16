@@ -12,23 +12,29 @@
             <img th:src="@{/images/logo6.png}" width="200" height="200" alt="Logo" class="logo">
         </div>
 
-        <div class="col-sm-5" style="margin: auto">            
-            <h1>Cadastro de Clientes</h1>
-            <form th:action="@{/gravar}" th:object="${cliente}" method="post">
+        <div class="col-sm-7" style="margin: auto">            
+            <h1>Alterar Dados de Clientes</h1>
+            <form th:action="@{/gravarCliente}" th:object="${cliente}" method="post">              
+                <input type="hidden" th:field="${cliente.id}">
                 <div class="row">
                     <div class="col-md-7">
                         <p>CPF: <input type="text" class="form-control" th:field="${cliente.cpf}" /> </p>
                     </div>
                     <div class="col-md-5">
-                        <p>Nível: <input type="text" class="form-control" th:field="${cliente.nivel}" /></p>
-                    </div>
+                        <p>Nível: 
+                        <select th:name="estilo" class="form-control" id="selEstilo" th:field="${cliente.nivel}"> 
+                            <option value="basico" >1 - Basico</option> 
+                            <option value="medio" >2 - Médio</option> 
+                            <option value="vip" >3 - Vip</option> 
+                        </select></p>
+                    </div>                    
                 </div>
                     <p>Nome: <input type="text" class="form-control" th:field="${cliente.nome}" /></p>
                 <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p>Nasc.: <input type="text" class="form-control" th:field="${cliente.nascimento}" /></p>
                 </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <p>E-mail: <input type="text" class="form-control" th:field="${cliente.email}" /></p>
                     </div>
                     <div class="col-md-4">
@@ -37,8 +43,7 @@
                     </div>
                 </div>
                     <button type="submit" class="btn btn-primary" > Salvar </button>
-                    <a th:href="@{/}"><button type="button" class="btn btn-dark" th:href="@{/}">Voltar</button></a>
-                </div>
+                    <a th:href="@{/listaCliente}"><button type="button" class="btn btn-dark">Voltar</button></a>                
             </form>
         </div>
     </body>

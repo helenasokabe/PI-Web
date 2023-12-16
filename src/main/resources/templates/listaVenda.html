@@ -14,52 +14,46 @@
         </div>
         <div class="col-sm-10" style="margin: auto">
             <h1>Lista de Vendas</h1>
-            <div class="row">
-                <div class="col-md-1">
-                    <p>Pesquisar por:</p>
+            <form th:action="@{/busca-venda}" method="get">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Pesquise por Cliente:</p>
+                    </div>               
+                    <div class="col-md-8">
+                        <input id="nome" class="form-control" type="text" name="nome">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary" > Buscar </button>
+                    </div>
                 </div>
-                <div class="col-md-1">
-                    <input type="radio" id="produto" name="drone" value="produto" checked />
-                    <label for="huey">Produto</label>
-                </div>
-
-                <div class="col-md-1">
-                    <input type="radio" id="codigo" name="drone" value="id" />
-                    <label for="dewey">Código</label>
-                </div>
-
-                <div class="col-md-8">
-
-                    <input id="nome" class="form-control" type="text" name="nome">
-                </div>
-                <div class="col-md-1">
-                    <button type="submit" class="btn btn-primary" > Buscar </button>
-                </div>
-            </div>
-
+            </form>
             <br>
-
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Data da Venda</th>
-                            <th>Produto</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
                             <th>Tipo de Pagamento</th>
+                            <th>Parcelas</th>
+                            <th>Detalhes</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!--<tr th:each="venda : ${listavenda}">                                    
+                        <tr th:each="venda : ${listaVenda}">                                    
                             <td th:text="${venda.id}"></td>
-                            <td th:text="${venda.dataVenda}"></td>
-                            <td th:text="${venda.tipo_pagamento}"></td>
-                            <td>
-                                
-                        </tr>-->
+                            <td th:text="${#temporals.format(venda.dataVenda, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${venda.cliente.nome}"></td>
+                            <td th:text="${venda.total}"></td>
+                            <td th:text="${venda.tipoPagamento}"></td>
+                            <td th:text="${venda.parcela}"></td>
+                            <td><a th:href="@{'/detalhes-venda?id=' + ${venda.id}}">Detalhes</a></td>
+                            <td>                                
+                        </tr>
                     </tbody>
                 </table>
-            <a th:href="@{/}"><button type="button" class="btn btn-dark" th:href="@{/}">Voltar</button></a>
-
+                <a th:href="@{/}"><button type="button" class="btn btn-dark" th:href="@{/}">Voltar</button></a>
         </div>
     </body>
 </html>

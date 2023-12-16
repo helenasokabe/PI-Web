@@ -9,36 +9,27 @@
                     <link th:href="@{/css/}+'estilo.css'" rel="stylesheet" type="text/css"/>
                     </head>
                     <body>
+
                         <div class = "row">
                             <img th:src="@{/images/logo6.png}" width="200" height="200" alt="Logo" class="logo">
                         </div>
-                        <div class="col-sm-10" style="margin: auto">
-                            <h1>Lista de Produtos</h1>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <p>Pesquisar por:</p>
-                                </div>
-                                <div class="col-md-1">
-                                    <input type="radio" id="produto" name="drone" value="produto" checked />
-                                    <label for="huey">Produto</label>
-                                </div>
-
-                                <div class="col-md-1">
-                                    <input type="radio" id="codigo" name="drone" value="id" />
-                                    <label for="dewey">Código</label>
-                                </div>
-
-                                <div class="col-md-8">
-
-                                    <input id="nome" class="form-control" type="text" name="nome">
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary" > Buscar </button>
+                        <form th:action="@{/buscarProdutoNome}" method="post">
+                            <div class="col-sm-10" style="margin: auto">
+                                <h1>Lista de Produtos</h1>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p>Pesquisar por nome:</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input id="nome" class="form-control" type="text" name="nome">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn btn-primary" > Buscar </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <br>
-
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -51,22 +42,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="prod : ${listaProd}">
+                                    <tr th:each="prod : ${listaproduto}">
                                         <td th:text="${prod.id}"></td>
-                                        <td th:text="${prod.produto}"></td>
+                                        <td th:text="${prod.nomeproduto}"></td>
                                         <td th:text="${prod.descricao}"></td>
                                         <td th:text="${prod.tamanho}"></td>
                                         <td th:text="${prod.estoque}"></td>
-                                        <td th:text="${prod.venda}"></td>
+                                        <td th:text="${prod.valor}"></td>
                                         <td>
-                                            <a th:href="@{'/alterar?id=' + ${prod.id}}">Alterar</a> |
-                                            <a th:href="@{'/excluir?id=' + ${prod.id}}">Excluir</a>
+                                            <a th:href="@{'/alteraProduto?id=' + ${prod.id}}">Alterar</a> |
+                                            <a th:href="@{'/excluirProduto?id=' + ${prod.id}}">Excluir</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <a th:href="@{/}"><button type="button" class="btn btn-dark" th:href="@{/}">Voltar</button></a>
-
-                            </div>
                     </body>
                     </html>

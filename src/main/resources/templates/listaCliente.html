@@ -14,58 +14,53 @@
                         </div>
                         <div class="col-sm-10" style="margin: auto">
                             <h1>Lista de Clientes</h1>
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <p>Pesquisar por:</p>
-                                </div>
-                                <div class="col-md-1">
-                                    <input type="radio" id="nome" name="drone" value="nome" checked />
-                                    <label for="huey">Nome</label>
-                                </div>
 
-                                <div class="col-md-1">
-                                    <input type="radio" id="cpf" name="drone" value="cpf" />
-                                    <label for="dewey">CPF</label>
-                                </div>
-
-                                <div class="col-md-8">
-                                    <input id="nome" class="form-control" type="text" name="nome">
-                                </div>
-                                      <div class="col-md-1">
-                                            <button type="submit" class="btn btn-primary" > Buscar </button>
+                            <form th:action="@{/buscarClienteNome}" name="nome" method="post">
+                                <div class="row">  
+                                    <div class="col-md-2">
+                                        <p>Pesquisar por nome:</p>
                                     </div>
-                      </div>
-                        <br>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>CPF</th>
-                                        <th>Nome</th>
-                                        <th>Nasc.</th>
-                                        <th>E-mail</th>
-                                        <th>Tel.</th>
-                                        <th>Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="cliente : ${listacliente}">
-                                        <td th:text="${cliente.id}"></td>
-                                        <td th:text="${cliente.cpf}"></td>
-                                        <td th:text="${cliente.nome}"></td>
-                                        <td th:text="${cliente.nascimento}"></td>
-                                        <td th:text="${cliente.email}"></td>
-                                        <td th:text="${cliente.telefone}"></td>
-                                        <td>
-                                            <a th:href="@{'/exibir?id=' + ${cliente.id}}">Venda</a> |
-                                            <a th:href="@{'/alterar?id=' + ${cliente.id}}">Alterar</a> |
-                                            <a th:href="@{'/excluir?id=' + ${cliente.id}}">Excluir</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                                            <a th:href="@{/}"><button type="button" class="btn btn-dark" th:href="@{/}">Voltar</button></a>
-                    
-                            </div>
+                                    <div class="col-md-8">
+                                        <input id="nomeCliente" class="form-control" type="text" name="nome">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn btn-primary" > Buscar </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <br>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>CPF</th>
+                                            <th>Nome</th>
+                                            <th>Nasc.</th>
+                                            <th>E-mail</th>
+                                            <th>Tel.</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr th:each="cliente : ${listacliente}">
+                                            <td th:text="${cliente.id}"></td>
+                                            <td th:text="${cliente.cpf}"></td>
+                                            <td th:text="${cliente.nome}"></td>
+                                            <td th:text="${cliente.nascimento}"></td>
+                                            <td th:text="${cliente.email}"></td>
+                                            <td th:text="${cliente.telefone}"></td>
+                                            <td>
+                                                <a th:href="@{'/exibir-venda?id=' + ${cliente.id}}">Venda</a> |
+                                                <a th:href="@{'/alteraCliente?id=' + ${cliente.id}}">Alterar</a> |
+                                                <a th:href="@{'/excluirCliente?id=' + ${cliente.id}}">Excluir</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <a th:href="@{/}"><button type="button" class="btn btn-dark" th:href="@{/}">Voltar</button></a>
+                        </div>
                     </body>
+
                     </html>
